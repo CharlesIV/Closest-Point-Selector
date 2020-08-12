@@ -57,6 +57,14 @@ public class PointSelector {
     
     private void initMapData() {
         //CHANGE NODES HERE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        nodes = new Node[23*23];
+//        nodes[0] = new Node(0,0);
+//        int y = 0;
+//        for(int i = 1; i < nodes.length; i++) {
+//            y += (i%23==0 ? 1 : 0);
+//            int x = i*30-y*30*23;
+//            nodes[i] = new Node(x, y*30);
+//        }
         nodes = new Node[] {
             new Node(11,400),
             new Node(137, 253),

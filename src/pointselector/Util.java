@@ -53,16 +53,19 @@ public class Util {
                 }
                 break;
         }
+        focus.resetColor();
         if(sorted.isEmpty())
             return focus;
         double smallestLength = calculateCloseness(focus, sorted.get(0), dir);
         Node closestPoint = sorted.get(0);
+        closestPoint.setColor(((float)smallestLength/1250)/255, (float)(300-smallestLength/1250)/255, smallestLength/1250>255? (float)(smallestLength-255)/255 : .2f);
         for(int i = 1; i < sorted.size(); i++) {
             double length = calculateCloseness(focus, sorted.get(i), dir);
             if(length < smallestLength) {
                 smallestLength = length;
                 closestPoint = sorted.get(i);
             }
+            sorted.get(i).setColor(((float)length/1250)/255, (float)(300-length/1250)/255, length/1250>255 ? (float)(length-255)/128 : .2f);
         }
         return closestPoint;
     }
@@ -77,7 +80,6 @@ public class Util {
      * @return 
      */
     private static double calculateCloseness(Node point1, Node point2, Direction dir) {
-        point2.setColor(.5f, .4f, .6f);
         int x = point2.x-point1.x;
         int y = point2.y-point1.y;
         double angle = 180*Math.atan2(y, x)/Math.PI;
