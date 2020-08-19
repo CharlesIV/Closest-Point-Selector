@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Node {
     int x, y;
     float r = 0, g = 1, b = 1;
-    final static int SIZE = 20;
+    final static int SIZE = 16;
     public Node(int x, int y) {
         this.x = x;
         this.y = y;

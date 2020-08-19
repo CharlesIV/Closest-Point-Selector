@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 public class Selector {
     int x, y;
     Node focus;
-    final static int SIZE = 10;
+    final static int SIZE = 8;
     final static int OFFSET = (Node.SIZE-SIZE)/2;
     public Selector(Node focus) {
         this.focus = focus;
@@ -29,6 +29,13 @@ public class Selector {
         glVertex2f(SIZE+OFFSET+x, 0+OFFSET+y);
         glVertex2f(0+OFFSET+x, 0+OFFSET+y);
         glEnd();
+    }
+    
+    public void moveFocus(int x, int y) {
+        this.x+=x;
+        this.y += y;
+        focus.x += x;
+        focus.y += y;
     }
     
     public void setFocusNode(Node n) {

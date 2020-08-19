@@ -9,7 +9,9 @@ import java.util.List;
  */
 public class Util {
     
-    private static int angleWeight = 4000;
+    private static float angleWeight = 5f;
+    private static float distanceWeightX = .2f;
+    private static float distanceWeightY = .2f;
     public enum Direction{UP, DOWN, LEFT, RIGHT};
     
     /**
@@ -58,14 +60,16 @@ public class Util {
             return focus;
         double smallestLength = calculateCloseness(focus, sorted.get(0), dir);
         Node closestPoint = sorted.get(0);
-        closestPoint.setColor(((float)smallestLength/1250)/255, (float)(300-smallestLength/1250)/255, smallestLength/1250>255? (float)(smallestLength-255)/255 : .2f);
+        //used to color points for visual effect; needs adjustment based on weights
+//        closestPoint.setColor(((float)smallestLength/230)/255, (float)(300-smallestLength/230)/255, smallestLength/230>255? (float)(smallestLength-255)/128 : .2f);
         for(int i = 1; i < sorted.size(); i++) {
             double length = calculateCloseness(focus, sorted.get(i), dir);
             if(length < smallestLength) {
                 smallestLength = length;
                 closestPoint = sorted.get(i);
             }
-            sorted.get(i).setColor(((float)length/1250)/255, (float)(300-length/1250)/255, length/1250>255 ? (float)(length-255)/128 : .2f);
+            //used to color points for visual effect; needs adjustment based on weights
+//            sorted.get(i).setColor(((float)length/230)/255, (float)(300-length/230)/255, length/230>255 ? (float)(length-255)/128 : .2f);
         }
         return closestPoint;
     }
@@ -85,10 +89,10 @@ public class Util {
         double angle = 180*Math.atan2(y, x)/Math.PI;
         switch(dir) {
             case UP:
-                angle = Math.abs(angle-90);
+                angle = Math.abs(angle-90); //switch to +90 for top left 0,0 coordinates
                 break;
             case DOWN:
-                angle = Math.abs(angle+90);
+                angle = Math.abs(angle+90);//switch to -90 for top left 0,0 coordinates
                 break;
             case LEFT:
                 if(angle >= 0)
@@ -100,6 +104,6 @@ public class Util {
                 angle = Math.abs(angle);
                 break;
         }
-        return angleWeight*angle + x*x+y*y;
+        return angleWeight*angle*angle + distanceWeightX*x*x+distanceWeightY*y*y;
     }
 }

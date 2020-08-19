@@ -7,7 +7,6 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
@@ -22,13 +21,11 @@ import org.lwjgl.system.MemoryUtil;
 public class PointSelector {
     
     private long window;
-    private final int WIDTH, HEIGHT;
+    static final int WIDTH = 650, HEIGHT = 650;
     private Node[] nodes;
     private Selector selector;
     
     public PointSelector() {
-        WIDTH = 500;
-        HEIGHT = 500;
         initWindow();
         initInput();
         initMapData();
@@ -85,7 +82,6 @@ public class PointSelector {
     
     private void initInput() {
         GLFWKeyCallback keyCallback;
-        GLFWMouseButtonCallback mouseCallback;
         
         glfwSetKeyCallback(window, keyCallback = GLFWKeyCallback.create((window, key, scancode, action, mods) -> {
             if(action!=GLFW_RELEASE)
@@ -108,10 +104,6 @@ public class PointSelector {
                     return;
             }
             selector.setFocusNode(findNearestPoint(nodes, selector.focus, dir));
-        }));
-
-        glfwSetMouseButtonCallback(window, mouseCallback = GLFWMouseButtonCallback.create((window, button, action, mods) -> {
-            
         }));
     }
     
